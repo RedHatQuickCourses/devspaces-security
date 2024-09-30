@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Authentication in Red Hat OpenShift Dev Spaces :: Securing Access to Red Hat OpenShift DevSpaces</title>
+    <link rel="prev" href="auto-namespaces.html">
+    <link rel="next" href="rbac.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../..">Securing Access to Red Hat OpenShift DevSpaces</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/devspaces-security/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header><div class="body">
+<div class="nav-container" data-component="devspaces-security" data-version="3">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Securing Access to Red Hat OpenShift DevSpaces</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Home</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="auto-namespaces.html">Namespace Control</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="auth.html">Authentication</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="rbac.html">Access Control</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Securing Access to Red Hat OpenShift DevSpaces</span>
+    <span class="version">3</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="index.html">Securing Access to Red Hat OpenShift DevSpaces</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">3</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Securing Access to Red Hat OpenShift DevSpaces</a></li>
+    <li><a href="auth.html">Authentication</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Authentication in Red Hat OpenShift Dev Spaces</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat OpenShift Dev Spaces runs on top of the OpenShift Container Platform, and relies on the underlying platform for many security related features. In previous hands-on labs, you used the <code>admin</code> user to install Dev Spaces as well as perform administrative tasks. You also used non-admin accounts <code>user1&#8230;&#8203;user5</code> to launch workspaces and test other features of the product (simulating a regular developer persona).</p>
+</div>
+<div class="paragraph">
+<p>The <code>admin</code> and <code>userX</code> users are authenticated using the internal OpenShift OAuth server backed by credentials stored in an encrypted <code>HTPasswd</code> file. OpenShift supports a number of different <em>Identity Providers</em> like LDAP, GitHub, GitLab, and more. See <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-single/authentication_and_authorization/index#supported-identity-providers" target="_blank" rel="noopener">OpenShift Supported identity providers</a> for the supported list.</p>
+</div>
+<div class="paragraph">
+<p>Configuring the OAuth server and identity providers for the base OpenShift Container Platform is outside the scope of this course. Consult the product documentation for <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-single/authentication_and_authorization/index" target="_blank" rel="noopener">OpenShift Authentication and authorization</a> for details.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_github_credentials_passthrough_in_workspaces"><a class="anchor" href="#_configuring_github_credentials_passthrough_in_workspaces"></a>Configuring GitHub Credentials Passthrough in Workspaces</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the hands-on labs so far, you have logged in using accounts managed by the base OpenShift OAuth server. For GitHub repositories that are <strong>public</strong>, you can clone the repositories in the workspace. However, if you want to clone private repositories, or make changed inside the Dev Spaces IDE, and commit the changes back to GitHub, you need to manually setup GitHub tokens or keys and configure your <code>.gitconfig</code> file inside the workspace. You need to do this for every workspace you launch since workspaces are based on container images that are immutable.</p>
+</div>
+<div class="paragraph">
+<p>Alternatively, you can set up Dev Spaces to authenticate using the GitHub OAuth 2.0 protocol and passthrough the user credentials to the workspaces automatically. The required credentials and configuration is mounted inside the workspace container using ConfigMaps.</p>
+</div>
+<div class="paragraph">
+<p>When you launch a workspace, you will be prompted for your GitHub credentials. After you successfully log in, your credentials will be passed through to your IDE instance and you can now pull private repositories, as well as commit changes back to GitHub without any manual set up.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_lab_configuring_github_oauth_2_0_authentication_for_workspaces"><a class="anchor" href="#_lab_configuring_github_oauth_2_0_authentication_for_workspaces"></a>Lab: Configuring GitHub OAuth 2.0 Authentication for Workspaces</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_pre_requisites"><a class="anchor" href="#_pre_requisites"></a>Pre-requisites</h3>
+<div class="paragraph">
+<p>You must have set up the authentication using the <code>HTPasswd</code> provider as outlined in the <a href="https://redhatquickcourses.github.io/devspaces-admin/devspaces-admin/3/index.html#_configuring_openshift_users_and_authentication" target="_blank" rel="noopener">Configuring OpenShift Users and Authentication</a> in the second course of the learning path. Review the YAML configuration files from that section as a refresher.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
+<div class="paragraph">
+<p>.</p>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="auto-namespaces.html">Namespace Control</a></span>
+  <span class="next"><a href="rbac.html">Access Control</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
