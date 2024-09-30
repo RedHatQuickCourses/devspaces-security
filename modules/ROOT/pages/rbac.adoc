@@ -1,0 +1,135 @@
+= Granular Access Control in Dev Spaces
+:navtitle: Access Control
+
+In the previous section, you learnt how to manage authentication and access to Dev Spaces. In large enterprise environments with a large number of developers from different organizations and teams trying to access Dev Spaces, you need more finer grained control over who is allowed to access Dev Spaces.
+
+A simple approach is to create OpenShift `Groups` and add users to these groups. You can then control access to Dev Spaces at both the group level as well as individually allow or deny access to users. 
+
+NOTE: This configuration is done at the `CheCluster` CR level so it is applicable to all workspaces in Dev Spaces.
+
+== Enabling Advanced Authorization in the CheCluster CR
+
+You can edit the `CheCluster` CR YAML and enable advanced authorization that gives you finer grained access control to the Dev Spaces workspaces. There are four attributes available:
+
+allowGroups::
+Only users in these groups are allowed access
+allowUsers::
+Only the individual users listed in this attribute will be allowed access
+denyGroups::
+All users in the groups listed are denied access
+denyUsers::
+All users listed in this attribute are denied access
+
+NOTE: If these attributes are missing in the `CheCluster` CR, then *ALL* users are allowed access to Dev Spaces.
+
+IMPORTANT: If the same users and groups exist in the allow and deny lists, then the *DENY* lists take precedence and the users and groups will be denied access.
+
+== Lab: Enhanced Authorization with Dev Spaces
+
+=== Pre-requisites
+
+You must have created the `admin` user with `cluster-admin` privileges and five users (`user1..user5`) that can access Dev Spaces as a regular developer user.
+
+[source,bash,subs=+quotes]
+----
+$ oc get users                                                                                                                                         
+NAME   ...       IDENTITIES
+admin  ...      htpasswd_provider:admin
+user1  ...      htpasswd_provider:user1
+user2  ...      htpasswd_provider:user2
+user3  ...      htpasswd_provider:user3
+user4  ...      htpasswd_provider:user4
+user5  ...      htpasswd_provider:user5
+----
+
+=== Steps
+
+. Log in as the `admin` user using the `oc` CLI
++
+[source,bash,subs=+quotes]
+----
+$ oc login -u admin __<OpenShift API URL>__
+----
+
+. Create a new OpenShift group named `dev-team`. This group will contain all developers whom you wish to provide access (to Dev Spaces)
++
+[source,bash,subs=+quotes]
+----
+$ oc adm groups new dev-team
+__group.user.openshift.io/dev-team created__
+----
+
+. Add `user2` to the `dev-team` group. You can add more users to this group if you want.
++
+[source,bash,subs=+quotes]
+----
+$ oc adm groups add-users dev-team user2
+__group.user.openshift.io/dev-team added: "user2"__
+----
+
+. List the users in the `dev-team` group and verify that the users you added in the previous step are visible.
++
+[source,bash,subs=+quotes]
+----
+$ oc get groups dev-team --output jsonpath={.users}
+__["user2"]__
+----
+
+. In the next steps, you will enable advanced authorization by editing the `devspaces` CheCluster CR. Before you do this, verify that other users not in the `dev-team` group can access the Dev Spaces dashboard and launch workspaces.
+
+. Edit the `devspaces` CheCluster CR:
++
+[source,bash,subs=+quotes]
+----
+$ oc edit checluster/devspaces -n openshift-devspaces
+----
++
+Enable the *advancedAuthorization* attribute under the *networking.auth* section in the YAML configuration and save the changes:
++
+[source,yaml,subs=+quotes]
+----
+spec:
+  components:
+    cheServer:
+      ...
+  devEnvironments:
+      ...
+  gitServices: {}
+  *networking:
+    auth:
+      advancedAuthorization:
+        allowGroups:
+        - dev-team*
+      gateway:
+       ...
+----
+
+. Wait for a few minutes for the Dev Spaces pods to be restarted with the changes. Log out of all active sessions in Dev Spaces.
+
+. Log in to OpenShift as the `user2` user and then open the Dev Spaces dashboard. You will be allowed to access the dashboard because you explicitly allowed access to the `dev-team` group, and `user2` belongs to the this group. If you added other users to this group, verify that they can access the Dev Spaces dashboard. 
++
+NOTE: You may have to open a new browser in private or incognito mode to test other users since your current active browser instance will store the session cookies for `user2`.
+
+. Now, login as one of the users NOT in the the `dev-team` group. For example, when you log in as `user5`, you should be denied access, and you will see an error like the following:
++
+image::user-rbac-error.png[title=Access Denied for users not in the allowed group]
+
+. Let us image a scenario where you want to control access at the individual user level without adding the user to a group. For example, let us say you want to allow `user5` access to Dev Spaces without adding the user to the `dev-team` group. Make the following changes to the `devspaces` CheCluster CR:
++
+[source,yaml,subs=+quotes]
+----
+...
+networking:
+    auth:
+      advancedAuthorization:
+        allowGroups:
+        - dev-team
+        *allowUsers:
+        - user5*
+      gateway:
+        ...
+----
+
+. Wait for the pods to restart. Log out from all active Dev Spaces sessions. Log in as `user5` and verify that the account can access the Dev Spaces dashboard. Experiment with the `denyUsers` and `denyGroups` attributes and test out access with various combinations of these four attributes.
+
+IMPORTANT: We recommend you roll back the changes (allow full access to all users) you made in this lab before proceeding to the next sections and courses in the learning path. Based on configurations you will be doing in the upcoming sections, you may be confused by access denied and other errors due to improper configuration of role based access. It is better to start with a clean slate for future hands-on labs. You can always selectively enable RBAC after you have configured other features and functions of Dev Spaces.

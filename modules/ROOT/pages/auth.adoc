@@ -1,0 +1,29 @@
+= Authentication in Red Hat OpenShift Dev Spaces
+:navtitle: Authentication
+
+Red Hat OpenShift Dev Spaces runs on top of the OpenShift Container Platform, and relies on the underlying platform for many security related features. In previous hands-on labs, you used the `admin` user to install Dev Spaces as well as perform administrative tasks. You also used non-admin accounts `user1...user5` to launch workspaces and test other features of the product (simulating a regular developer persona).
+
+The `admin` and `userX` users are authenticated using the internal OpenShift OAuth server backed by credentials stored in an encrypted `HTPasswd` file. OpenShift supports a number of different __Identity Providers__ like LDAP, GitHub, GitLab, and more. See https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-single/authentication_and_authorization/index#supported-identity-providers[OpenShift Supported identity providers^] for the supported list.
+
+Configuring the OAuth server and identity providers for the base OpenShift Container Platform is outside the scope of this course. Consult the product documentation for https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-single/authentication_and_authorization/index[OpenShift Authentication and authorization^] for details.
+
+== Configuring GitHub Credentials Passthrough in Workspaces
+
+In the hands-on labs so far, you have logged in using accounts managed by the base OpenShift OAuth server. For GitHub repositories that are *public*, you can clone the repositories in the workspace. However, if you want to clone private repositories, or make changed inside the Dev Spaces IDE, and commit the changes back to GitHub, you need to manually setup GitHub tokens or keys and configure your `.gitconfig` file inside the workspace. You need to do this for every workspace you launch since workspaces are based on container images that are immutable.
+
+Alternatively, you can set up Dev Spaces to authenticate using the GitHub OAuth 2.0 protocol and passthrough the user credentials to the workspaces automatically. The required credentials and configuration is mounted inside the workspace container using ConfigMaps.
+
+When you launch a workspace, you will be prompted for your GitHub credentials. After you successfully log in, your credentials will be passed through to your IDE instance and you can now pull private repositories, as well as commit changes back to GitHub without any manual set up.
+
+== Lab: Configuring GitHub OAuth 2.0 Authentication for Workspaces
+
+=== Pre-requisites
+
+You must have set up the authentication using the `HTPasswd` provider as outlined in the https://redhatquickcourses.github.io/devspaces-admin/devspaces-admin/3/index.html#_configuring_openshift_users_and_authentication[Configuring OpenShift Users and Authentication^] in the second course of the learning path. Review the YAML configuration files from that section as a refresher.
+
+=== Steps
+
+. 
+
+
+

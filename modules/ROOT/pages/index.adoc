@@ -20,6 +20,7 @@ NOTE: The hands-on labs for this course have been tested on *Red Hat OpenShift D
 
 The overall objectives of this course include:
 
+* Overview of authentication and authorization in Dev Spaces
 * Configure access to Workspaces using GitHub OAuth 2.0
 * Allow users and groups access to specific workspaces
 
