@@ -7,23 +7,95 @@ The `admin` and `userX` users are authenticated using the internal OpenShift OAu
 
 Configuring the OAuth server and identity providers for the base OpenShift Container Platform is outside the scope of this course. Consult the product documentation for https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-single/authentication_and_authorization/index[OpenShift Authentication and authorization^] for details.
 
-== Configuring GitHub Credentials Passthrough in Workspaces
+== Configuring Credentials Passthrough in Workspaces
 
-In the hands-on labs so far, you have logged in using accounts managed by the base OpenShift OAuth server. For GitHub repositories that are *public*, you can clone the repositories in the workspace. However, if you want to clone private repositories, or make changed inside the Dev Spaces IDE, and commit the changes back to GitHub, you need to manually setup GitHub tokens or keys and configure your `.gitconfig` file inside the workspace. You need to do this for every workspace you launch since workspaces are based on container images that are immutable.
+In the hands-on labs so far, you have logged in using accounts managed by the base OpenShift OAuth server. For GitHub repositories that are *public*, you can clone the repositories in the workspace. However, if you want to clone private repositories, or make changes inside the Dev Spaces IDE, and commit the changes back to GitHub, you need to manually setup GitHub tokens or keys and configure your `.gitconfig` file inside the workspace. You need to do this for every workspace you launch since workspaces are based on container images that are immutable.
 
-Alternatively, you can set up Dev Spaces to authenticate using the GitHub OAuth 2.0 protocol and passthrough the user credentials to the workspaces automatically. The required credentials and configuration is mounted inside the workspace container using ConfigMaps.
+Alternatively, for projects where you work with source code in GitHub, GitLab or equivalent source control, you can set up Dev Spaces to authenticate using the OAuth 2.0 protocol and passthrough the user credentials to the workspaces automatically.
 
-When you launch a workspace, you will be prompted for your GitHub credentials. After you successfully log in, your credentials will be passed through to your IDE instance and you can now pull private repositories, as well as commit changes back to GitHub without any manual set up.
+When you launch a workspace, you will be prompted for your Git credentials. After you successfully log in, your credentials will be passed through to your IDE instance and you can now pull private repositories, as well as commit changes back to GitHub without any manual set up.
+
+Dev Spaces supports a number of OAuth 2.0 providers like GitHub, GitLab, BitBucket and Azure DevOps. We will mostly focus on GitHub in this section.
+
+NOTE: Another alternative is to use GitHub/GitLab Personal Access Tokens (PAT), but this method also requires some manual effort and is less flexible than configuring OAuth for your Dev Spaces setup.
 
 == Lab: Configuring GitHub OAuth 2.0 Authentication for Workspaces
 
 === Pre-requisites
 
-You must have set up the authentication using the `HTPasswd` provider as outlined in the https://redhatquickcourses.github.io/devspaces-admin/devspaces-admin/3/index.html#_configuring_openshift_users_and_authentication[Configuring OpenShift Users and Authentication^] in the second course of the learning path. Review the YAML configuration files from that section as a refresher.
+* You must have set up the authentication using the `HTPasswd` provider as outlined in the https://redhatquickcourses.github.io/devspaces-admin/devspaces-admin/3/index.html#_configuring_openshift_users_and_authentication[Configuring OpenShift Users and Authentication^] in the second course of the learning path. Review the YAML configuration files from that section as a refresher.
+
+* You must have a GitHub account
 
 === Steps
 
-. 
+. To configure GitHub OAuth, you need to generate a client ID and client secret from the GitHub side. Log in to GitHub, and navigate to https://github.com/settings/applications/new to create a new GitHub OAuth App.
++
+WARNING: You need to create OAuth apps and *NOT* GitHub Apps!. Follow the steps and screenshots carefully.
 
+. In the `New OAuth Application` page, enter the following :
++
+* *Application name*: `devspaces-auth`
+* *Homepage URL*: _<OpenShift Dev Spaces URL>_
+* *Authorization callback URL*: https://<openshift_dev_spaces_url>/api/oauth/callback
++
+image::new-github-oauth-app.png[title=New GitHub OAuth App]
+
+. Click `Register Application` to create the application. Click `Generate a new client secret`. Copy the client ID and client secret and store it securely.
+
+. The next step is to use the generated client ID and client secret in an OpenShift Secret resource on the Dev Spaces side of the configuration to enable OAuth authentication. Create a new YAML file named `github-oauth-conf.yaml` with the following content:
++
+[source,yaml,subs=+quotes]
+----
+kind: Secret
+apiVersion: v1
+metadata:
+  name: github-oauth-config
+  namespace: openshift-devspaces
+  labels:
+    app.kubernetes.io/part-of: che.eclipse.org
+    app.kubernetes.io/component: oauth-scm-configuration
+  annotations:
+    che.eclipse.org/oauth-scm-server: github
+    che.eclipse.org/scm-server-endpoint: https://github.com
+    che.eclipse.org/scm-github-disable-subdomain-isolation: 'false'
+type: Opaque
+stringData:
+  id: _<GitHub_OAuth_Client_ID>_
+  secret: _<GitHub_OAuth_Client_Secret>_
+----
+
+. Create the secret using the `oc` CLI:
++
+[source,bash,subs=+quotes]
+----
+$ oc apply -f github-oauth-conf.yaml
+_secret/github-oauth-config created_
+----
+
+. Wait for a few minutes while the Dev Spaces pods are restarted with the changes. With the browser in `Private` or `Incognito` mode, log in as the `user1` user and launch a new workspace by providing the GitHub URL of a *private* repository in the `Git repo URL` field.
++
+image::workspace-git-clone.png[title=Provide the GitHub URL of a private repository]
++
+Click `Create & Open` to launch the workspace.
+
+. Dev Spaces will prompt you for your GitHub credentials and show details about the OAuth app you created previously. Click `Authorize` to continue.
++
+image::github-oauth-prompt.png[GitHub OAuth Login]
+
+. After your workspace loads, open a new VSCode terminal. Run the `git config -l` command and notice that your username and email have been injected automatically into your git client configuration.
++
+[source,bash,subs=+quotes]
+----
+$ git config -l
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+...
+*user.name=<Your Name>
+user.email=<Your EMail>*
+...
+----
+
+. Make some changes to the code in the repository, stage the files, and commit them with a suitable message. Run `git push` and verify that the changes are pushed back to your GitHub repository.
 
 
