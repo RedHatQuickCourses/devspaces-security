@@ -2,5 +2,6 @@
 * xref:auto-namespaces.adoc[]
 * xref:auth.adoc[]
 * xref:rbac.adoc[]
+* xref:resources.adoc[]
 
 

@@ -78,6 +78,8 @@ _secret/github-oauth-config created_
 image::workspace-git-clone.png[title=Provide the GitHub URL of a private repository]
 +
 Click `Create & Open` to launch the workspace.
++
+NOTE: Do not launch any of the sample workspaces from the Dev Spaces dashboard. Some of them do not use Git repositories for source code, and you cannot test pushing changes back to the origin repository!
 
 . Dev Spaces will prompt you for your GitHub credentials and show details about the OAuth app you created previously. Click `Authorize` to continue.
 +

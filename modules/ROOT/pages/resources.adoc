@@ -1,0 +1,12 @@
+= Useful Resources
+:navtitle: Resources
+
+A large part of keeping Dev Spaces secure is to follow best practices for the base OpenShift Container Platform. The following resources related to Dev Spaces security are useful:
+
+* https://developers.redhat.com/articles/2024/02/19/red-hat-openshift-dev-spaces-security-best-practices[Red Hat OpenShift Dev Spaces security best practices^]
+* https://developers.redhat.com/articles/2024/02/01/how-configure-granular-access-openshift-dev-spaces[How to configure granular access in OpenShift Dev Spaces^]
+* https://www.redhat.com/en/blog/openshift-runtime-security-best-practices[OpenShift Runtime Security Best Practices^]
+* https://www.redhat.com/en/blog/openshift-networking-and-cluster-access-best-practices[OpenShift Networking and Cluster Access Best Practices^]
+* https://www.redhat.com/en/blog/openshift-security-best-practices-for-kubernetes-cluster-design[OpenShift Security Best Practices for Kubernetes Cluster Design^]
+* https://access.redhat.com/solutions/3226491[How to create groups and add users to it in OpenShift^]
+* https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.16/html-single/administration_guide/index#configuring-cluster-roles-for-users[Configuring OpenShift cluster roles for Dev Spaces^]
