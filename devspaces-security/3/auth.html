@@ -97,7 +97,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Red Hat OpenShift Dev Spaces runs on top of the OpenShift Container Platform, and relies on the underlying platform for many security related features. In previous hands-on labs, you used the <code>admin</code> user to install Dev Spaces as well as perform administrative tasks. You also used non-admin accounts <code>user1&#8230;&#8203;user5</code> to launch workspaces and test other features of the product (simulating a regular developer persona).</p>
+<p>Red Hat OpenShift Dev Spaces runs on top of the OpenShift Container Platform and relies on the underlying platform for many security-related features. In previous hands-on labs, you used the <code>admin</code> user to install Dev Spaces as well as perform administrative tasks. You also used non-admin accounts <code>user1&#8230;&#8203;user5</code> to launch workspaces and test other features of the product (simulating a regular developer persona).</p>
 </div>
 <div class="paragraph">
 <p>The <code>admin</code> and <code>userX</code> users are authenticated using the internal OpenShift OAuth server backed by credentials stored in an encrypted <code>HTPasswd</code> file. OpenShift supports a number of different <em>Identity Providers</em> like LDAP, GitHub, GitLab, and more. See <a href="https://docs.redhat.com/en/documentation/openshift_container_platform/4.16/html-single/authentication_and_authorization/index#supported-identity-providers" target="_blank" rel="noopener">OpenShift Supported identity providers</a> for the supported list.</p>
@@ -114,10 +114,10 @@
 <p>In the hands-on labs so far, you have logged in using accounts managed by the base OpenShift OAuth server. For GitHub repositories that are <strong>public</strong>, you can clone the repositories in the workspace. However, if you want to clone private repositories, or make changes inside the Dev Spaces IDE, and commit the changes back to GitHub, you need to manually setup GitHub tokens or keys and configure your <code>.gitconfig</code> file inside the workspace. You need to do this for every workspace you launch since workspaces are based on container images that are immutable.</p>
 </div>
 <div class="paragraph">
-<p>Alternatively, for projects where you work with source code in GitHub, GitLab or equivalent source control, you can set up Dev Spaces to authenticate using the OAuth 2.0 protocol and passthrough the user credentials to the workspaces automatically.</p>
+<p>Alternatively, for projects where you work with source code in GitHub, GitLab or equivalent source control, you can set up Dev Spaces to authenticate using the OAuth 2.0 protocol and pass through the user credentials to the workspaces automatically.</p>
 </div>
 <div class="paragraph">
-<p>When you launch a workspace, you will be prompted for your Git credentials. After you successfully log in, your credentials will be passed through to your IDE instance and you can now pull private repositories, as well as commit changes back to GitHub without any manual set up.</p>
+<p>When you launch a workspace, you will be prompted for your Git credentials. After you successfully log in, your credentials will be passed through to your IDE instance and you can now pull private repositories, as well as commit changes back to GitHub without any manual setup.</p>
 </div>
 <div class="paragraph">
 <p>Dev Spaces supports a number of OAuth 2.0 providers like GitHub, GitLab, BitBucket and Azure DevOps. We will mostly focus on GitHub in this section.</p>
@@ -147,7 +147,7 @@ Another alternative is to use GitHub/GitLab Personal Access Tokens (PAT), but th
 <p>You must have set up the authentication using the <code>HTPasswd</code> provider as outlined in the <a href="https://redhatquickcourses.github.io/devspaces-admin/devspaces-admin/3/index.html#_configuring_openshift_users_and_authentication" target="_blank" rel="noopener">Configuring OpenShift Users and Authentication</a> in the second course of the learning path. Review the YAML configuration files from that section as a refresher.</p>
 </li>
 <li>
-<p>You must have a GitHub account</p>
+<p>You must have a GitHub account.</p>
 </li>
 </ul>
 </div>

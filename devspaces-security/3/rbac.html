@@ -97,7 +97,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In the previous section, you learnt how to manage authentication and access to Dev Spaces. In large enterprise environments with a large number of developers from different organizations and teams trying to access Dev Spaces, you need more finer grained control over who is allowed to access Dev Spaces.</p>
+<p>In the previous section, you learnt how to manage authentication and access to Dev Spaces. In large enterprise environments with a large number of developers from different organizations and teams trying to access Dev Spaces, you need more finer-grained control over who is allowed to access Dev Spaces.</p>
 </div>
 <div class="paragraph">
 <p>A simple approach is to create OpenShift <code>Groups</code> and add users to these groups. You can then control access to Dev Spaces at both the group level as well as individually allow or deny access to users.</p>
@@ -120,7 +120,7 @@ This configuration is done at the <code>CheCluster</code> CR level so it is appl
 <h2 id="_enabling_advanced_authorization_in_the_checluster_cr"><a class="anchor" href="#_enabling_advanced_authorization_in_the_checluster_cr"></a>Enabling Advanced Authorization in the CheCluster CR</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can edit the <code>CheCluster</code> CR YAML and enable advanced authorization that gives you finer grained access control to the Dev Spaces workspaces. There are four attributes available:</p>
+<p>You can edit the <code>CheCluster</code> CR YAML and enable advanced authorization that gives you finer-grained access control to the Dev Spaces workspaces. There are four attributes available:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -202,7 +202,7 @@ user5  ...      htpasswd_provider:user5</code></pre>
 </div>
 </li>
 <li>
-<p>Create a new OpenShift group named <code>dev-team</code>. This group will contain all developers whom you wish to provide access (to Dev Spaces)</p>
+<p>Create a new OpenShift group named <code>dev-team</code>. This group will contain all developers to whom you wish to provide access (to Dev Spaces)</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">$ oc adm groups new dev-team
@@ -264,7 +264,7 @@ user5  ...      htpasswd_provider:user5</code></pre>
 <p>Wait for a few minutes for the Dev Spaces pods to be restarted with the changes. Log out of all active sessions in Dev Spaces.</p>
 </li>
 <li>
-<p>Log in to OpenShift as the <code>user2</code> user and then open the Dev Spaces dashboard. You will be allowed to access the dashboard because you explicitly allowed access to the <code>dev-team</code> group, and <code>user2</code> belongs to the this group. If you added other users to this group, verify that they can access the Dev Spaces dashboard.</p>
+<p>Log in to OpenShift as the <code>user2</code> user and then open the Dev Spaces dashboard. You will be allowed to access the dashboard because you explicitly allowed access to the <code>dev-team</code> group, and <code>user2</code> belongs to this group. If you added other users to this group, verify that they can access the Dev Spaces dashboard.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -272,14 +272,14 @@ user5  ...      htpasswd_provider:user5</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-You may have to open a new browser in private or incognito mode to test other users since your current active browser instance will store the session cookies for <code>user2</code>.
+You may have to open a new browser in private or incognito mode to test other users since your current active browser instance will store the session cookies for the <code>user2</code>.
 </td>
 </tr>
 </table>
 </div>
 </li>
 <li>
-<p>Now, login as one of the users NOT in the the <code>dev-team</code> group. For example, when you log in as <code>user5</code>, you should be denied access, and you will see an error like the following:</p>
+<p>Now, log in as one of the users NOT in the <code>dev-team</code> group. For example, when you log in as <code>user5</code>, you should be denied access, and you will see an error like the following:</p>
 <div class="imageblock">
 <div class="content">
 <img src="_images/user-rbac-error.png" alt="user rbac error">
@@ -288,7 +288,7 @@ You may have to open a new browser in private or incognito mode to test other us
 </div>
 </li>
 <li>
-<p>Let us image a scenario where you want to control access at the individual user level without adding the user to a group. For example, let us say you want to allow <code>user5</code> access to Dev Spaces without adding the user to the <code>dev-team</code> group. Make the following changes to the <code>devspaces</code> CheCluster CR:</p>
+<p>Let us imagine a scenario where you want to control access at the individual user level without adding the user to a group. For example, let us say you want to allow <code>user5</code> access to Dev Spaces without adding the user to the <code>dev-team</code> group. Make the following changes to the <code>devspaces</code> CheCluster CR:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
@@ -316,7 +316,7 @@ networking:
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-We recommend you roll back the changes (allow full access to all users) you made in this lab before proceeding to the next sections and courses in the learning path. Based on configurations you will be doing in the upcoming sections, you may be confused by access denied and other errors due to improper configuration of role based access. It is better to start with a clean slate for future hands-on labs. You can always selectively enable RBAC after you have configured other features and functions of Dev Spaces.
+We recommend you roll back the changes (allow full access to all users) you made in this lab before proceeding to the next sections and courses in the learning path. Based on the configurations, you will be doing in the upcoming sections, you may be confused by access denied and other errors due to improper configuration of role-based access. It is better to start with a clean slate for future hands-on labs. You can always selectively enable RBAC after you have configured other features and functions of Dev Spaces.
 </td>
 </tr>
 </table>
