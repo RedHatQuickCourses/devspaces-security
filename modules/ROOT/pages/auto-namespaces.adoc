@@ -7,6 +7,8 @@ In some OpenShift installations, there is strict control over who is allowed to 
 
 You can turn off automatic namespace creation at the CheCluster CR level and then manually create the namespace using the process approved for your setup (GitOps, manually by a platform administrator etc).
 
+image::ns-mgmt.svg[title=Namespace Management in Dev Spaces]
+
 == Lab: Disable Dev Spaces Namespace Auto Creation
 
 . Log in as the `admin` user using the `oc` CLI

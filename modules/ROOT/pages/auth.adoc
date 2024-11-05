@@ -19,6 +19,8 @@ Dev Spaces supports a number of OAuth 2.0 providers like GitHub, GitLab, BitBuck
 
 NOTE: Another alternative is to use GitHub/GitLab Personal Access Tokens (PAT), but this method also requires some manual effort and is less flexible than configuring OAuth for your Dev Spaces setup.
 
+image::ds-auth.svg[title=Authentication in Dev Spaces]
+
 == Lab: Configuring GitHub OAuth 2.0 Authentication for Workspaces
 
 === Pre-requisites
