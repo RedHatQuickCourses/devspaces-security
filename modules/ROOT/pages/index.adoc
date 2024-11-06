@@ -9,7 +9,7 @@ This course is the `third` in a series of `five` courses about Red Hat OpenShift
 . https://redhatquickcourses.github.io/devspaces-intro[Introduction to Red Hat OpenShift Dev Spaces^]
 . https://redhatquickcourses.github.io/devspaces-admin[Red Hat OpenShift Dev Spaces Administration^] 
 . Securing Access to Red Hat OpenShift Dev Spaces (_This course_)
-. Creating and Customizing Workspaces in Red Hat OpenShift Dev Spaces (_Under Development_)
+. https://redhatquickcourses.github.io/devspaces-admin[Creating and Customizing Workspaces in Red Hat OpenShift Dev Spaces^]
 . Configuring Plugins in Red Hat OpenShift Dev Spaces (_Under Development_)
 
 This course covers how to secure access to Red Hat OpenShift Dev Spaces and Workspaces.
@@ -21,7 +21,8 @@ NOTE: The hands-on labs for this course have been tested on *Red Hat OpenShift D
 The overall objectives of this course include:
 
 * Overview of authentication and authorization in Dev Spaces
-* Configure access to Workspaces using GitHub OAuth 2.0
+* Namespace control in Dev Spaces
+* Allow access to Workspaces using GitHub OAuth 2.0
 * Allow users and groups access to specific workspaces
 
 == Course Prerequisites
