@@ -31,7 +31,7 @@ image::ds-auth.svg[title=Authentication in Dev Spaces]
 
 === Steps
 
-. To configure GitHub OAuth, you need to generate a client ID and client secret from the GitHub side. Log in to GitHub, and navigate to https://github.com/settings/applications/new to create a new GitHub OAuth App.
+. To configure GitHub OAuth, you need to generate a client ID and client secret from the GitHub side. Log in to GitHub, and navigate to https://github.com/settings/applications/new[window=_blank] to create a new GitHub OAuth App.
 +
 WARNING: You need to create OAuth apps and *NOT* GitHub Apps!. Follow the steps and screenshots carefully.
 
