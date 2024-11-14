@@ -10,7 +10,7 @@ This course is the `third` in a series of `five` courses about Red Hat OpenShift
 . https://redhatquickcourses.github.io/devspaces-admin[Red Hat OpenShift Dev Spaces Administration^] 
 . Securing Access to Red Hat OpenShift Dev Spaces (_This course_)
 . https://redhatquickcourses.github.io/devspaces-workspaces[Creating and Customizing Workspaces in Red Hat OpenShift Dev Spaces^]
-. Configuring Plugins in Red Hat OpenShift Dev Spaces (_Under Development_)
+. https://redhatquickcourses.github.io/devspaces-plugins[Configuring Plugins in Red Hat OpenShift Dev Spaces^]
 
 This course covers how to secure access to Red Hat OpenShift Dev Spaces and Workspaces.
 
