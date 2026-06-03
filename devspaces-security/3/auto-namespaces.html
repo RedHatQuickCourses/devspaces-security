@@ -97,13 +97,13 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>When you log in as a Dev Spaces user and launch the dashboard, a dedicated namespace (OpenShift project) is <em>automatically</em> created for the user. When this user launches a workspace, the resources used by this workspace are all created in this dedicated namespace. Other Dev Spaces users cannot access this namespace.</p>
+<p>When a user logs in to the Dev Spaces dashboard for the first time, Dev Spaces automatically creates a dedicated OpenShift namespace (project) for that user by default. When the user starts a workspace, the workspace resources are created within this namespace. Other regular Dev Spaces users do not have access to this namespace unless additional RBAC permissions are granted.</p>
 </div>
 <div class="paragraph">
-<p>In some OpenShift installations, there is strict control over who is allowed to create namespaces for security and resource control reasons. Regular users are not allowed to create namespaces. In such scenarios, when users log in, they will not be allowed to access the dashboard since namespace auto-creation has been blocked.</p>
+<p>In some OpenShift environments, namespace creation is restricted for security, governance, or resource management reasons. In such cases, users might be unable to access or use Dev Spaces properly because automatic namespace provisioning is blocked.</p>
 </div>
 <div class="paragraph">
-<p>You can turn off automatic namespace creation at the CheCluster CR level and then manually create the namespace using the process approved for your setup (GitOps, manually by a platform administrator etc).</p>
+<p>To support these environments, you can disable automatic namespace creation in the CheCluster custom resource and instead pre-create user namespaces using an approved operational process such as GitOps workflows or manual provisioning by a cluster administrator.</p>
 </div>
 <div class="imageblock">
 <div class="content">
