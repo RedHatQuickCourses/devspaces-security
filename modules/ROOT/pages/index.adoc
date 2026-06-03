@@ -38,6 +38,7 @@ The overall objectives of this course include:
 The PTL team acknowledges the valuable contributions of the following Red Hat associates:
 
 * Ravi Srinivasan
+* Yogita Soni
 * Rutuja Deshmukh
 * Anna Swicegood
 * Caitlyn Rymarchyk

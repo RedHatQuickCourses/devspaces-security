@@ -9,5 +9,5 @@ A large part of keeping Dev Spaces secure is to follow best practices for the ba
 * https://www.redhat.com/en/blog/openshift-networking-and-cluster-access-best-practices[OpenShift Networking and Cluster Access Best Practices^]
 * https://www.redhat.com/en/blog/openshift-security-best-practices-for-kubernetes-cluster-design[OpenShift Security Best Practices for Kubernetes Cluster Design^]
 * https://access.redhat.com/solutions/3226491[How to create groups and add users to it in OpenShift^]
-* https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.27/html/administration_guide/assembly_managing-identities-and-authorizations_administration_guide[Chapter 15. Manage identities and authorizations^]
-* https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.27/html-single/administration_guide/index?utm_source=chatgpt.com#assembly_configuring-oauth-for-git-providers_administration_guide[Chapter 16. Configure OAuth for Git providers^]
+* https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.27/html/administration_guide/assembly_managing-identities-and-authorizations_administration_guide[Manage identities and authorizations^]
+* https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.27/html-single/administration_guide/index?utm_source=chatgpt.com#assembly_configuring-oauth-for-git-providers_administration_guide[Configure OAuth for Git providers^]
