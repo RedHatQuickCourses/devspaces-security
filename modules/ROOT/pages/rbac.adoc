@@ -130,6 +130,10 @@ networking:
         ...
 ----
 
-. Wait for the pods to restart. Log out from all active Dev Spaces sessions. Log in as `user5` and verify that the account can access the Dev Spaces dashboard. Experiment with the `denyUsers` and `denyGroups` attributes and test out access with various combinations of these four attributes.
+. Wait for the rollout of the OpenShift Dev Spaces server components to complete. Log out from all active Dev Spaces sessions. Log in as `user5` and verify that the account can access the Dev Spaces dashboard. Experiment with the `denyUsers` and `denyGroups` attributes and test out access with various combinations of these four attributes.
 
 IMPORTANT: We recommend you roll back the changes (allow full access to all users) you made in this lab before proceeding to the next sections and courses in the learning path. Based on the configurations, you will be doing in the upcoming sections, you may be confused by access denied and other errors due to improper configuration of role-based access. It is better to start with a clean slate for future hands-on labs. You can always selectively enable RBAC after you have configured other features and functions of Dev Spaces.
+
+=== Resources
+
+* https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.27/html/administration_guide/assembly_managing-identities-and-authorizations_administration_guide[Chapter 15. Manage identities and authorizations^]
