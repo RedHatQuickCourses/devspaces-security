@@ -103,4 +103,3 @@ user.email=<Your EMail>*
 === Resources
 
 * https://docs.redhat.com/en/documentation/red_hat_openshift_dev_spaces/3.27/html-single/administration_guide/index?utm_source=chatgpt.com#assembly_configuring-oauth-for-git-providers_administration_guide[Chapter 16. Configure OAuth for Git providers^]
-
